@@ -51,11 +51,10 @@ const shirtInfo = new Crawler({
     }
 });
 
-// The crawler instance that gets page links
+// The crawler instances
 module.exports.shirtPages = shirtPages;
-// The page links themselves
-module.exports.pages = shirtPages.options.shirtPages;
-// The crawler instance that gets shirt info
 module.exports.shirtInfo = shirtInfo;
-// The info itself
+
+// The data returned (shorthand makes scraper.js more readable)
+module.exports.pages = shirtPages.options.shirtPages;
 module.exports.info = shirtInfo.options.shirtInfo;
