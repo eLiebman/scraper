@@ -28,9 +28,10 @@ const getShirtData = new Crawler({
 });
 
 const getLinks = new Crawler({
+  retries: 0,
   callback : function (error, response, done) {
     if (error) {
-      console.log(error);
+      console.error(`\nUnable to connect to shirts4mike.com\n`);
     } else{
       const $ = response.$;
       const links = [];
