@@ -2,8 +2,9 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const fs = require('fs');
 
 
-// New date formatted to use as file name.
+// Full date for error logs
 const fullDate = new Date();
+// Formatted date for .csv file names
 const date = fullDate.toISOString().split('T')[0];
 
 
@@ -19,7 +20,7 @@ const csvWriter = createCsvWriter({
     ]
 });
 
-// Write function
+// Write to .csv
 function write(records) {
   const dataFolder = '/Volumes/E-Drive/Programming/github/THProjects/scraper/data';
   const todaysFile = `/Volumes/E-Drive/Programming/github/THProjects/scraper/data/${date}.csv`;
@@ -31,16 +32,19 @@ function write(records) {
 
   // Write the csv file to the data directory
   csvWriter.writeRecords(records)
-    .then( () => console.log(`Write successful, file is located at:\n${todaysFile}`) )
-    .catch( (error) => console.log(error) );
+    .then( () => console.log(`Write successful, file is located at:\n${todaysFile}`))
+    .catch( error => {
+      log(error);
+      console.log(error);
+    });
 }
 
 // Write to error log
-function error(error) {
+function log(error) {
   const errorLog = '/Volumes/E-Drive/Programming/github/THProjects/scraper/scraper-error.log';
   const message = `[${fullDate}] <${error}>\n`;
   fs.appendFileSync(errorLog, message);
 }
 
 module.exports.write = write;
-module.exports.error = error;
+module.exports.log = log;
