@@ -1,5 +1,5 @@
 const Crawler = require('crawler');
-
+const file = require('./file.js');
 
 // This crawler instance extracts relative urls for each shirt
 // from shirts4mike.com/shirts.php, and stores them in the
@@ -10,6 +10,7 @@ const shirtPages = new Crawler({
   retries: 0,
   callback : function (error, response, done) {
     if (error) {
+      file.error(error);
       console.error(`\nUnable to connect to shirts4mike.com\n`);
     } else {
       const $ = response.$;
@@ -32,6 +33,7 @@ const shirtInfo = new Crawler({
   shirtInfo: [],
   callback : function (error, response, done) {
       if (error) {
+        file.error(error);
         console.log(error);
       } else {
         const $ = response.$;

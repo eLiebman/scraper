@@ -1,4 +1,4 @@
-const csv = require('./csv.js');
+const file = require('./file.js');
 const get = require('./get.js');
 
 // Initial request to get.shirtPages
@@ -13,4 +13,4 @@ get.shirtPages.on('drain', () => {
 });
 
 // When request is complete, write shirtData to a .csv file
-get.shirtInfo.on('drain', () => csv.write(get.info));
+get.shirtInfo.on('drain', () => file.write(get.info));
