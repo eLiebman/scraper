@@ -1,8 +1,9 @@
 const Crawler = require('crawler');
 
+
 // This crawler instance extracts relative urls for each shirt
 // from shirts4mike.com/shirts.php, and stores them in the
-// 'shirtPages' array, accessible via shirtPages.options.shirtPages
+// options.shirtPages array, exported as 'get.pages'
 
 const shirtPages = new Crawler({
   shirtPages: [],
@@ -10,9 +11,10 @@ const shirtPages = new Crawler({
   callback : function (error, response, done) {
     if (error) {
       console.error(`\nUnable to connect to shirts4mike.com\n`);
-    } else{
+    } else {
       const $ = response.$;
-      //Get 8 links (individual shirt pages)
+
+      //Store 8 links in shirtPages array
       for (let i = 0; i<8; i++) {
         response.options.shirtPages.push($(".products li a")[i].attribs.href);
       }
@@ -21,18 +23,20 @@ const shirtPages = new Crawler({
   }
 });
 
+
 // This crawler instance takes an individual shirt page
 // and extracts relevant data, storing it as an object
-// in the shirtInfo array, accessible using
-// shirtInfo.options.shirtInfo
+// in the options.shirtInfo array, exported as 'get.info'
 
 const shirtInfo = new Crawler({
   shirtInfo: [],
   callback : function (error, response, done) {
       if (error) {
         console.log(error);
-      } else{
+      } else {
         const $ = response.$;
+
+        // Store info to variables
         const header = $('.shirt-details h1').text().split(' ');
         const price = header.shift();
         const color = header.pop();
@@ -44,7 +48,10 @@ const shirtInfo = new Crawler({
         const url = response.request.uri.href;
         const time = new Date().toTimeString();
 
+        // Construct object in correct format
         const newRow = {title, price, imgURL, url, time};
+
+        // Store each object in 'shirtInfo' array
         response.options.shirtInfo.push(newRow);
       }
       done();
