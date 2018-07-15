@@ -10,7 +10,7 @@ const date = fullDate.toISOString().split('T')[0];
 
 // Create csvWriter
 const csvWriter = createCsvWriter({
-    path: `/Volumes/E-Drive/Programming/github/THProjects/scraper/data/${date}.csv`,
+    path: `./data/${date}.csv`,
     header: [
         {id: 'title', title: 'Title'},
         {id: 'price', title: 'Price'},
@@ -22,8 +22,8 @@ const csvWriter = createCsvWriter({
 
 // Write to .csv
 function write(records) {
-  const dataFolder = '/Volumes/E-Drive/Programming/github/THProjects/scraper/data';
-  const todaysFile = `/Volumes/E-Drive/Programming/github/THProjects/scraper/data/${date}.csv`;
+  const dataFolder = './data';
+  const todaysFile = `./data/${date}.csv`;
 
   // Check for data folder, create it if it doesn't exist
   if (!fs.existsSync(dataFolder)) {fs.mkdirSync(dataFolder)}
@@ -41,7 +41,7 @@ function write(records) {
 
 // Write to error log
 function log(error) {
-  const errorLog = '/Volumes/E-Drive/Programming/github/THProjects/scraper/scraper-error.log';
+  const errorLog = './scraper-error.log';
   const message = `[${fullDate}] <${error}>\n`;
   fs.appendFileSync(errorLog, message);
 }
